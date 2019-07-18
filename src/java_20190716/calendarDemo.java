@@ -6,9 +6,9 @@ public class calendarDemo {
 		// 1년 365일 이고 윤년일 때는 366일 => 2월 29일
 		// 윤년은 4년마다 발생하고 그중에서 100의 배수는 제외하고 400배수는 제외하지 않는다.
 
-		int year = 2020;
-		int month = 3;
-		int day = 15;
+		int year = 2019;
+		int month = 7;
+		int day = 18;
 		int preYear = year - 1;
 		int preMonth = month - 1;
 		int a[] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };

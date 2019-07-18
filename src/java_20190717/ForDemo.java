@@ -37,7 +37,7 @@ public class ForDemo {
 		}
 
 		System.out.printf("\n소수 : ");
-		for (int i = 1; i <= 100; i++) {
+		for (int i = 2; i <= 100; i++) {
 			for (int j = 2; j <= i; j++) {
 				if (i % j == 0) {
 					if (i == j) {
