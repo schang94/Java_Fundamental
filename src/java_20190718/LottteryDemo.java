@@ -44,5 +44,6 @@ public class LottteryDemo {
 			
 			System.out.println();
 		}
+	
 	}
 }
