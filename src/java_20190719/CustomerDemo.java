@@ -29,7 +29,6 @@ public class CustomerDemo {
 		System.out.printf("%s, %d, %s, %s, ￦%.2f, %s\n",c2.name,c2.age,c2.email,c2.phone,c2.balance,c2.isRelease);
 		
 		Customer c3 = c2; // c3는 c2가 가르키는 곳을 가르킨다.
-		
 		System.out.printf("%s, %d, %s, %s, ￦%.2f, %s\n",c3.name,c3.age,c3.email,c3.phone,c3.balance,c3.isRelease);
 	}
 }
