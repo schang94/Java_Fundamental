@@ -7,18 +7,15 @@ public class PrimeNumber {
 	public int[] getPrime(int temp) {
 		int count = 0;
 		int[] num = new int[temp];
-		boolean isPrimeNumber = false;
 		for (int i = 2; i <= temp; i++) {
-			isPrimeNumber = true;
-			for (int j = 2; j < i; j++) {
+			for (int j = 2; j <= i; j++) {
 				if (i % j == 0) {
-					isPrimeNumber = false;
-					break;
+					if (i == j) {
+						num[count++] = i;
+					} else {
+						break;
+					}
 				}
-			}
-			if(isPrimeNumber) {
-				num[count] = i;
-				count++;
 			}
 		}
 		
