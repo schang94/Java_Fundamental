@@ -42,94 +42,108 @@ public class MemberManagementDemo {
 	}
 
 	private void insert() {
+		boolean dataCheck = true;
 		String id = console("아이디를 입력하세요 : ");
-		String name = console("이름을 입력하세요 : ");
-		list.add(new Member(id,name));
+
 		for (int i = 0; i < list.size(); i++) {
-			Member temp = (Member)list.get(i);
-			System.out.println(temp);
+			Member temp = (Member) list.get(i);
+			if (id.equals(temp.getId())) {
+				dataCheck = false;
+				break;
+			}
 		}
+		if (dataCheck) {
+			String name = console("이름을 입력하세요 : ");
+			list.add(new Member(id, name));
+			for (int i = 0; i < list.size(); i++) {
+				Member temp = (Member) list.get(i);
+				System.out.println(temp);
+			}
+		} else {
+			System.out.println("중복된 아이디 입니다.");
+		}
+		
 		print();
 		String index = console("번호를 선택하세요 : ");
 		run(index);
 	}
+
 	private void update() {
 		boolean dataCheck = false;
 		String id = console("수정할 아이디를 입력하세요 : ");
-		
+
 		for (int i = 0; i < list.size(); i++) {
-			Member temp = (Member)list.get(i);
-			if(id.equals(temp.getId())) {
+			Member temp = (Member) list.get(i);
+			if (id.equals(temp.getId())) {
 				list.remove(i);
 				dataCheck = true;
 				break;
 			}
 		}
-		
-		if(dataCheck) {
+
+		if (dataCheck) {
 			String name = console("이름을 수정하시요 : ");
-			list.add(new Member(id,name));
-			
+			list.add(new Member(id, name));
+
 			for (int i = 0; i < list.size(); i++) {
-				Member temp = (Member)list.get(i);
+				Member temp = (Member) list.get(i);
 				System.out.println(temp);
 			}
-		}
-		else {
+		} else {
 			System.out.println("존재하지 않는 아이디 입니다.");
 		}
-		
+
 		print();
 		String index = console("번호를 선택하세요 : ");
 		run(index);
 	}
+
 	private void delete() {
 		boolean dataCheck = false;
 		String id = console("삭제할 아이디를 입력하세요 : ");
-		
+
 		for (int i = 0; i < list.size(); i++) {
-			Member temp = (Member)list.get(i);
-			if(id.equals(temp.getId())) {
+			Member temp = (Member) list.get(i);
+			if (id.equals(temp.getId())) {
 				list.remove(i);
 				dataCheck = true;
 				break;
 			}
 		}
-		
-		if(dataCheck) {
+
+		if (dataCheck) {
 			for (int i = 0; i < list.size(); i++) {
-				Member temp = (Member)list.get(i);
+				Member temp = (Member) list.get(i);
 				System.out.println(temp);
 			}
-		}
-		else {
+		} else {
 			System.out.println("존재하지 않는 아이디 입니다.");
 		}
 		print();
 		String index = console("번호를 선택하세요 : ");
 		run(index);
 	}
+
 	private void search() {
 		boolean dataCheck = false;
 		String id = console("검색할 아이디를 입력하세요 : ");
-		int check=0;
-		
+		int check = 0;
+
 		for (int i = 0; i < list.size(); i++) {
-			Member temp = (Member)list.get(i);
-			if(id.equals(temp.getId())) {
-				check=i;
+			Member temp = (Member) list.get(i);
+			if (id.equals(temp.getId())) {
+				check = i;
 				dataCheck = true;
 				break;
 			}
 		}
-		if(dataCheck) {
-			Member temp = (Member)list.get(check);
+		if (dataCheck) {
+			Member temp = (Member) list.get(check);
 			System.out.println(temp);
-		}
-		else {
+		} else {
 			System.out.println("존재하지 않는 아이디 입니다.");
 		}
-		
+
 		print();
 		String index = console("번호를 선택하세요 : ");
 		run(index);
