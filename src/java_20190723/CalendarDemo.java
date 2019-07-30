@@ -28,8 +28,6 @@ public class CalendarDemo {
 				int year = Integer.parseInt(data[0]);
 				c.print(year);
 			} else if (dataLength == 2) {
-				
-
 				int year = Integer.parseInt(data[0]);
 				int month = Integer.parseInt(data[1]);
 				c.print(year, month);
