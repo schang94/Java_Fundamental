@@ -45,8 +45,7 @@ public class MemberManagementDemo {
 		boolean dataCheck = true;
 		String id = console("아이디를 입력하세요 : ");
 
-		for (int i = 0; i < list.size(); i++) {
-			Member temp = (Member) list.get(i);
+		for (Member temp: list) {
 			if (id.equals(temp.getId())) {
 				dataCheck = false;
 				break;
@@ -55,8 +54,7 @@ public class MemberManagementDemo {
 		if (dataCheck) {
 			String name = console("이름을 입력하세요 : ");
 			list.add(new Member(id, name));
-			for (int i = 0; i < list.size(); i++) {
-				Member temp = (Member) list.get(i);
+			for (Member temp: list) {
 				System.out.println(temp);
 			}
 		} else {
@@ -72,25 +70,21 @@ public class MemberManagementDemo {
 		boolean dataCheck = false;
 		String id = console("수정할 아이디를 입력하세요 : ");
 
-		for (int i = 0; i < list.size(); i++) {
-			Member temp = (Member) list.get(i);
+		for (Member temp: list) {
 			if (id.equals(temp.getId())) {
-				list.remove(i);
 				dataCheck = true;
+				String name = console("이름을 수정하시요 : ");
+				temp.setName(name);
 				break;
 			}
 		}
 
 		if (dataCheck) {
-			String name = console("이름을 수정하시요 : ");
-			list.add(new Member(id, name));
-
-			for (int i = 0; i < list.size(); i++) {
-				Member temp = (Member) list.get(i);
+			for (Member temp: list) {
 				System.out.println(temp);
 			}
 		} else {
-			System.out.println("존재하지 않는 아이디 입니다.");
+			System.out.println("수정할 아이디가 없습니다.");
 		}
 
 		print();
@@ -102,18 +96,16 @@ public class MemberManagementDemo {
 		boolean dataCheck = false;
 		String id = console("삭제할 아이디를 입력하세요 : ");
 
-		for (int i = 0; i < list.size(); i++) {
-			Member temp = (Member) list.get(i);
+		for (Member temp: list) {
 			if (id.equals(temp.getId())) {
-				list.remove(i);
+				list.remove(temp);
 				dataCheck = true;
 				break;
 			}
 		}
 
 		if (dataCheck) {
-			for (int i = 0; i < list.size(); i++) {
-				Member temp = (Member) list.get(i);
+			for (Member temp: list) {
 				System.out.println(temp);
 			}
 		} else {
@@ -134,13 +126,11 @@ public class MemberManagementDemo {
 			if (id.equals(temp.getId())) {
 				check = i;
 				dataCheck = true;
+				System.out.println(temp);
 				break;
 			}
 		}
-		if (dataCheck) {
-			Member temp = (Member) list.get(check);
-			System.out.println(temp);
-		} else {
+		if(!dataCheck) {
 			System.out.println("존재하지 않는 아이디 입니다.");
 		}
 
