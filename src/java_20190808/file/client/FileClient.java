@@ -29,7 +29,7 @@ public class FileClient {
 		BufferedWriter bw = null;
 		InputStream in = null;
 		FileOutputStream fos = null;
-		String fileName = "kic.txt";
+		String fileName = "scott.sql";
 		
 		try {
 			socket = new Socket(ip, port);
@@ -75,7 +75,7 @@ public class FileClient {
 	}
 
 	public static void main(String[] args) {
-		new FileClient("192.168.0.86", 4000).run();
+		new FileClient("192.168.0.52", 4000).run();
 		;
 	}
 }
