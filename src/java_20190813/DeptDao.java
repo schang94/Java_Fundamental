@@ -1,4 +1,4 @@
-package java_20190812;
+package java_20190813;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,11 +7,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-// Dao(Data Access Object)
-// Dto(Dtat Transfer Object)
-public class MemberDao {
+public class DeptDao {
+	
+	private static DeptDao single;
 
-	static {
+	private DeptDao() {
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
 		} catch (ClassNotFoundException e) {
@@ -19,146 +19,141 @@ public class MemberDao {
 			e.printStackTrace();
 		}
 	}
-	// 1. singleton 코딩
-	private static MemberDao single;
-	private MemberDao() {}
-	public static MemberDao getInstance() {
-		if(single == null) {
-			single = new MemberDao();
+
+	public static DeptDao getInstance() {
+		if (single == null) {
+			single = new DeptDao();
 		}
 		return single;
 	}
 	
-	public boolean insert(MemberDto m) {
-		Connection con = null;
-		PreparedStatement pstmt = null;
+	public boolean insert(DeptDto d) {
 		boolean isSuccess = false;
-		int index = 0;
-		try {
-			con = DriverManager.getConnection("jdbc:mariadb://localhost/kic?user=kic12&password=kic12");
-			
-			StringBuffer sql = new StringBuffer();
-			sql.append("INSERT INTO member(num,name,addr) ");
-			sql.append("values(?,?,?)");
-			
-			pstmt = con.prepareStatement(sql.toString());
-			pstmt.setInt(++index, m.getNum());
-			pstmt.setString(++index, m.getName());
-			pstmt.setString(++index, m.getAddr());
-			
-			pstmt.executeUpdate();
-			
-			isSuccess = true;
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			try {
-				if(pstmt != null) pstmt.close();
-				if(con != null) con.close();
-			} catch (SQLException e2) {
-				// TODO: handle exception
-			}
-		}
 		
-		
-		return isSuccess;
-	}
-	
-	public boolean update(MemberDto m) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
-		boolean isSuccess = false;
-		int index = 0;
-		try {
-			con = DriverManager.getConnection("jdbc:mariadb://localhost/kic?user=kic12&password=kic12");
-			
-			// 바인딩 변수(?)는 반드시 컬럼 값에만 설정할 수 있다.
-			StringBuffer sql = new StringBuffer();
-			sql.append("UPDATE member ");
-			sql.append("SET name = ?, addr = ? ");
-			sql.append("WHERE num = ?");
-			
-			pstmt = con.prepareStatement(sql.toString());
-			pstmt.setString(++index, m.getName());
-			pstmt.setString(++index, m.getAddr());
-			pstmt.setInt(++index, m.getNum());
-			
-			pstmt.executeUpdate();
-			
-			isSuccess = true;
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			try {
-				if(pstmt != null) pstmt.close();
-				if(con != null) con.close();
-			} catch (SQLException e2) {
-				// TODO: handle exception
-			}
-		}
-		
-		
-		return isSuccess;
-	}
-	
-	public boolean delete(MemberDto m) {
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		boolean isSuccess = false;
-		int index = 0;
-		try {
-			con = DriverManager.getConnection("jdbc:mariadb://localhost/kic?user=kic12&password=kic12");
-			
-			StringBuffer sql = new StringBuffer();
-			sql.append("DELETE ");
-			sql.append("FROM member ");
-			sql.append("WHERE num = ?");
-			
-			pstmt = con.prepareStatement(sql.toString());
-			pstmt.setInt(++index, m.getNum());
-			
-			pstmt.executeUpdate();
-			isSuccess = true;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			try {
-				if(pstmt != null) pstmt.close();
-				if(con != null) con.close();
-			} catch (SQLException e2) {
-				// TODO: handle exception
-			}
-		}
-		
-		
-		return isSuccess;
-	}
-	
-	public ArrayList<MemberDto> select(){
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		ArrayList<MemberDto> list = new ArrayList<MemberDto>();
 		int index = 1;
 		try {
 			con = DriverManager.getConnection("jdbc:mariadb://localhost/kic?user=kic12&password=kic12");
 			
 			StringBuffer sql = new StringBuffer();
-			sql.append("SELECT num,name,addr ");
-			sql.append("FROM member");
+			sql.append("INSERT INTO dept(DEPTNO,DNAME,LOC) ");
+			sql.append("VALUES(?,?,?)");
 			
 			pstmt = con.prepareStatement(sql.toString());
+			
+			pstmt.setInt(index++, d.getNo());
+			pstmt.setString(index++, d.getName());
+			pstmt.setString(index, d.getLoc());
+			
+			pstmt.executeUpdate();
+			isSuccess = true;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt != null) pstmt.close();
+				if(con != null) con.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		
+		return isSuccess;
+	}
+	
+	public boolean update(DeptDto d) {
+		boolean isSuccess = false;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		int index = 1;
+		
+		try {
+			con = DriverManager.getConnection("jdbc:mariadb://localhost/kic?user=kic12&password=kic12");
+			
+			StringBuffer sql = new StringBuffer();
+			sql.append("UPDATE dept ");
+			sql.append("SET DNAME = ?, LOC = ? ");
+			sql.append("WHERE DEPTNO = ?");
+			
+			pstmt = con.prepareStatement(sql.toString());
+			pstmt.setString(index++, d.getName());
+			pstmt.setString(index++, d.getLoc());
+			pstmt.setInt(index, d.getNo());
+			
+			pstmt.executeUpdate();
+			isSuccess = true;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt != null) pstmt.close();
+				if(con != null) con.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return isSuccess;
+	}
+	public boolean delete(int no) {
+		boolean isSuccess = false;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		int index = 1;
+		
+		try {
+			con = DriverManager.getConnection("jdbc:mariadb://localhost/kic?user=kic12&password=kic12");
+			
+			StringBuffer sql = new StringBuffer();
+			sql.append("DELETE ");
+			sql.append("FROM dept ");
+			sql.append("WHERE DEPTNO = ?");
+			
+			pstmt = con.prepareStatement(sql.toString());
+			pstmt.setInt(index++,no);
+			
+			pstmt.executeUpdate();
+			isSuccess = true;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt != null) pstmt.close();
+				if(con != null) con.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+		return isSuccess;
+	}
+	
+	public ArrayList<DeptDto> select(){
+		ArrayList<DeptDto> list = new ArrayList<DeptDto>();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int index = 1;
+		
+		try {
+			con = DriverManager.getConnection("jdbc:mariadb://localhost/kic?user=kic12&password=kic12");
+			
+			StringBuffer sql = new StringBuffer();
+			sql.append("SELECT DEPTNO,DNAME,LOC ");
+			sql.append("FROM dept ");
+			sql.append("ORDER BY DEPTNO ASC");
+			
+			pstmt = con.prepareStatement(sql.toString());
+			
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				list.add(
-						new MemberDto(
-								rs.getInt(index++),rs.getString(index++),rs.getString(index)));
+				list.add(new DeptDto(rs.getInt(index++),rs.getString(index++),rs.getString(index)));
 				index = 1;
 			}
 		} catch (SQLException e) {
@@ -169,11 +164,11 @@ public class MemberDao {
 				if(rs != null) rs.close();
 				if(pstmt != null) pstmt.close();
 				if(con != null) con.close();
-			} catch (SQLException e2) {
-				// TODO: handle exception
+			} catch (Exception e2) {
+				e2.printStackTrace();
 			}
 		}
-		
 		return list;
 	}
+
 }
