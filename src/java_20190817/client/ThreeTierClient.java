@@ -250,7 +250,7 @@ public class ThreeTierClient {
 	}
 	
 	public static void main(String[] args) {
-		ThreeTierClient m1 = new ThreeTierClient("192.168.0.8",6000);
+		ThreeTierClient m1 = new ThreeTierClient("192.168.0.86",6000);
 
 		m1.print();
 		m1.connect();

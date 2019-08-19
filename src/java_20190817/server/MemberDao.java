@@ -202,7 +202,6 @@ public class MemberDao {
 	}
 	
 	public boolean Overlap(String id) {
-		System.out.println(id);
 		boolean isSuccess = false;
 		Connection con = null;
 		PreparedStatement pstmt = null;
