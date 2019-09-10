@@ -43,8 +43,11 @@ public class Utility {
 		
 		return isSuccess;
 	}
-	public static String getComma(double name, int precision) {
-		return String.format("%,." + precision + "f", name);
+	public static String getComma(long name) {
+		return String.format("%,d", name);
+	}
+	public static String getComma(double name,int precision) {
+		return String.format("%,."+precision+"f", name);
 	}
 
 	public static boolean changeFile(String path) {

@@ -29,7 +29,7 @@ public class FileClient {
 		BufferedWriter bw = null;
 		InputStream in = null;
 		FileOutputStream fos = null;
-		String fileName = "scott.sql";
+		String fileName = "Amazon.pptx";
 		
 		try {
 			socket = new Socket(ip, port);
